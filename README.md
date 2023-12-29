@@ -4,7 +4,7 @@
 
 In 2022, some classmates and I built a digital disposable camera. We got the idea after noticing how distracted our friends became at social events sharing photos in real time on their phones. To better enable people to experience life in the moment without worrying that their memories might not be preserved, we aimed to combine the quality and ease of digital photography with the deferred gratification of traditional photography and the photo sharing capability of the cloud. On our app, users can form group albums and set “reveal dates” for when the photos will become visible (or get virtually developed, as we like to think of it).
 
-I worked on the backend of the project. One of my main contribution was an architectural design than enables clients to upload photos to an S3 bucket without passing the image data through the API server, thus minimizing the load on the server. This architecture is extremely useful for any web service that requires users to upload photos for display or that serves privately stored images to clients. As a strong believer in microservice architecture, I built a highly portable, open-source, streamlined version of this solution for anyone to integrate into their web dev project.
+I worked on the backend of the project. For the photo upload solution, I architected a way for clients to upload photos to an S3 bucket without passing the image data through the API server, thus minimizing the load on the server. This architecture is extremely useful for any web service that requires users to upload photos for display or that serves privately stored images to clients. As a strong believer in microservice architecture, I built a highly portable, open-source, streamlined version of this solution for anyone to integrate into their web dev project.
 
 ## Architecture
 
@@ -34,7 +34,20 @@ We can leverage the same architecture when the client needs to download an image
 
 ## Usage
 
+### Development
+
+```
+cd terraform
+terraform apply -auto-approve
+cd ../simple_server
+npm install
+sh simple_server_setup.sh 3000
+npm start
+```
+
 ## Security Considerations
+
+## Testing
 
 ## Acknowledgements
 
