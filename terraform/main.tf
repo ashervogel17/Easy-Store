@@ -26,9 +26,9 @@ resource "aws_iam_policy" "server_iam_policy" {
     Statement = [
       {
         Action = [
-          "s3:PutObject",
+          "s3:putObject",
           "s3:getObject",
-          "s3:DeleteObject",
+          "s3:deleteObject",
         ]
         Effect   = "Allow"
         Resource = "${aws_s3_bucket.main_bucket.arn}/*"
