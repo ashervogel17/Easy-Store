@@ -11,8 +11,8 @@ const s3 = new aws.S3({
 });
 
 async function generateSignedURL(operationType, bucketName, objectKey, expirationTime) {
-  if (operationType !== 'getObject' && operationType !== 'putObject') {
-    throw new Error('Invalid value for paramter operationType. Supported values are getObject and putObject');
+  if (operationType !== 'getObject' && operationType !== 'putObject' && operationType !== 'deleteObject') {
+    throw new Error('Invalid value for paramter operationType. Supported values are getObject, putObject, and deleteObject');
   }
   
   const params = {
@@ -21,8 +21,8 @@ async function generateSignedURL(operationType, bucketName, objectKey, expiratio
     Expires: expirationTime,
   };
 
-  return await s3.getSignedUrlPromise(operationType, params).then((uploadURL) => {
-    return uploadURL;
+  return await s3.getSignedUrlPromise(operationType, params).then((url) => {
+    return url;
   }).catch((error) => { throw new Error(`Failed to generate signed URL: ${error}`); });
 }
 
@@ -38,7 +38,14 @@ async function generateDownloadURL(bucketName, objectKey, expirationTime) {
   }).catch((error) => { throw new Error(`Failed to generate presigned download URL: ${error}`); });
 }
 
+async function generateDeleteURL(bucketName, objectKey, expirationTime) {
+  return await generateSignedURL('deleteObject', bucketName, objectKey, expirationTime).then((deleteURL) => {
+    return deleteURL;
+  }).catch((error) => { throw new Error(`Failed to generate presigned delete URL: ${error}`); });
+}
+
 module.exports = {
   generateUploadURL, 
-  generateDownloadURL
+  generateDownloadURL,
+  generateDeleteURL
 };
