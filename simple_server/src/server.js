@@ -6,12 +6,14 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-app.use(morgan('tiny'));
+app.use(morgan('dev', { skip: (req, res) => process.env.NODE_ENV === 'test' }));
 
-const port = 3000; // Choose a port number
+const port = process.env.PORT;
 
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}`);
 });
 
 app.use('/api', router);
+
+module.exports = app;
