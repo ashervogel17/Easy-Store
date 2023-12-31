@@ -30,6 +30,7 @@ AWS_SECRET_ACCESS_KEY=$secret_key
 AWS_REGION=$region
 S3_BUCKET=$bucket
 PORT=$port
+NODE_ENV=dev
 EOL
 
 exit 0
